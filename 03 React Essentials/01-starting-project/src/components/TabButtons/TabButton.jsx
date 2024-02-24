@@ -1,5 +1,11 @@
-export default function TabButton(props) {
-    return <li><button>{props.children}</button></li>
+export default function TabButton({children, onSelect}) {
+    //document.querySelector('button').addEventListener('click', (e) => {alert(e.target.id)});
+
+  return (
+    <li>
+      <button onClick={onSelect}>{children}</button>
+    </li>
+  );
 }
 
 // this also will work using destructuring
