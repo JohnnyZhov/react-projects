@@ -14,6 +14,21 @@ function App() {
     setSelectedTopic(selectedButton);
     console.log(selectedTopic);
   }
+
+  let tabContent = <p>Please select a topic</p>;
+
+  if (selectedTopic) {
+    tabContent = (
+      <div className="" id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedTopic].code}</code>
+        </pre>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
@@ -35,13 +50,32 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect("components")}>
+            <TabButton
+              isSelected={selectedTopic === "components"}
+              onSelect={() => handleSelect("components")}
+            >
               Components
             </TabButton>
-            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
+            <TabButton
+              isSelected={selectedTopic === "jsx"}
+              onSelect={() => handleSelect("jsx")}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === "props"}
+              onSelect={() => handleSelect("props")}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === "state"}
+              onSelect={() => handleSelect("state")}
+            >
+              State
+            </TabButton>
           </menu>
+          {/* 1. First approach */}
           {/* {!selectedTopic ? <p>Please select a topic</p> : (
             <div className="" id="tab-content">
               <h3>{EXAMPLES[selectedTopic].title}</h3>
@@ -51,7 +85,8 @@ function App() {
               </pre>
             </div>
           )} */}
-          {!selectedTopic && <p>Please select a topic</p>}
+          {/* 2. Second approach */}
+          {/* {!selectedTopic && <p>Please select a topic</p>}
           {selectedTopic && (
             <div className="" id="tab-content">
               <h3>{EXAMPLES[selectedTopic].title}</h3>
@@ -60,7 +95,8 @@ function App() {
                 <code>{EXAMPLES[selectedTopic].code}</code>
               </pre>
             </div>
-          )}
+          )} */}
+          {tabContent}
         </section>
       </main>
     </div>
