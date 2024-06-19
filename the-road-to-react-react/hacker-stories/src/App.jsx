@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 
 const App = () => {
@@ -19,11 +20,16 @@ const App = () => {
       objectID: 1,
     },
   ];
+
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+  };
+
   return (
     <div>
       <h1>My Hacker Stories</h1>
 
-      <Search />
+      <Search onSearch={handleSearch}/>
 
       <hr />
 
@@ -32,19 +38,27 @@ const App = () => {
   );
 };
 
-const Search = () => {
+const Search = (props) => {
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleChange = (event) => {
-    // synthetic event
-    console.log(event);
-    // value of target (here: input HTML element)
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+
+    props.onSearch(event);
   };
   return (
     <div>
       <label htmlFor="search">Search: </label>
       <input id="search" type="text" onChange={handleChange} />
+      <p>
+        Searching for <strong>{searchTerm}</strong>
+      </p>
     </div>
   );
+};
+
+Search.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };
 
 const List = (props) => (
